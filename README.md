@@ -89,7 +89,7 @@
 ## 🔗 Links
 
 * 📁 Full Project Repository: *\[You’ll put your GitHub repo link here]*
-* 📄 [Level 1 Summary Dashboard]( )
+* 📄 [Level 1 Summary Dashboard](https://github.com/Riddhis2226/ZomatoLens-A-Data-Driven-Exploration-of-Restaurant-Trends-in-India/tree/main/Level_1)
 * 🔗 [LinkedIn Post (Coming Soon)](https://www.linkedin.com/in/riddhima-singh-7b5626265)
 
 ---
