@@ -19,20 +19,19 @@
 
 ## 🗂️ Project Structure
 
-Level_1/
-│
-├── Task_1_Top_Cuisines/             # Most common cuisines
-├── Task_2_City_Analysis/            # City-wise restaurant count and avg ratings
-├── Task_3_Price_Range/              # Price tier analysis
-└── Task_4_Online_Delivery/          # Delivery availability vs ratings
+**Level_1/**
+- Task_1_Top_Cuisines/             # Most common cuisines
+- Task_2_City_Analysis/            # City-wise restaurant count and avg ratings
+- Task_3_Price_Range/              # Price tier analysis
+- Task_4_Online_Delivery/          # Delivery availability vs ratings
 
-Level_2/
-├── Task_1_Cuisine_Combination/      # Advanced EDA on cuisine combos
-├── Task_2_Sentiment_Analysis/       # Ratings vs review text
-└── Task_3_Map_Visualizations/       # Geo-level insights (if available)
+**Level_2/**
+- Task_1_Cuisine_Combination/      # Advanced EDA on cuisine combos
+- Task_2_Sentiment_Analysis/       # Ratings vs review text
+- Task_3_Map_Visualizations/       # Geo-level insights (if available)
 
-Level_3/
-└── Predictive_Modeling/             # ML model to predict ratings or delivery usage
+**Level_3/**
+- Predictive_Modeling/             # ML model to predict ratings or delivery usage
 
 ---
 
