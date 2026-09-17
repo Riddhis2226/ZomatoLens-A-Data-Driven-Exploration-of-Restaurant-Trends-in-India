@@ -50,7 +50,7 @@ The Cognifyz brief defines three levels of four, four, and three tasks respectiv
 |---|---|---|---|
 | Level 1 | 4 | 4 | Cuisines, city analysis, price distribution, online delivery |
 | Level 2 | 4 | 4 | Ratings, cuisine combinations, geography, restaurant chains |
-| Level 3 | 3 | 3 + 1 enrichment | Reviews, votes, price-vs-service, plus spaCy noun-phrase extraction as an enrichment of the review task |
+| Level 3 | 3 | 3 + 1 enrichment | Reviews, votes, price-vs-service, plus spaCy noun-phrase extraction as an extension of the review task |
 
 ## Analytical capabilities
 
@@ -60,7 +60,7 @@ The Cognifyz brief defines three levels of four, four, and three tasks respectiv
 - **Entity analysis** — restaurant-chain identification by repeated name, with branch count, average rating, and total votes tracked separately (Level 2)
 - **Sentiment analysis** — VADER and TextBlob polarity scoring (Level 3)
 - **NLP enrichment** — spaCy noun-chunk frequency extraction (Level 3)
-- **Correlation analysis** — votes-vs-rating and review-length-vs-rating relationships, reported as correlation coefficients, not causal claims (Level 3)
+- **Correlation analysis** — votes-vs-rating and sentiment-vs-rating relationships, reported as correlation coefficients, not causal claims (Level 3)
 - **Service-adoption analysis** — online delivery and table booking uptake broken down by price tier (Level 3)
 
 ## Technical stack
@@ -69,7 +69,7 @@ The Cognifyz brief defines three levels of four, four, and three tasks respectiv
 |---|---|
 | Language | Python 3 |
 | Data handling | Pandas, NumPy |
-| Visualization | Plotly Express & Graph Objects, Matplotlib, WordCloud |
+| Visualization | Plotly Express & Graph Objects, Matplotlib, Seaborn, WordCloud |
 | Application | Streamlit |
 | NLP & sentiment | NLTK (VADER), TextBlob, spaCy (`en_core_web_sm`) |
 | Geospatial | Plotly `scatter_mapbox` on OpenStreetMap / CARTO tile layers |
@@ -109,10 +109,13 @@ ZomatoLens-A-Data-Driven-Exploration-of-Restaurant-Trends-in-India/
     ├── README.md
     ├── level3_dashboard.py
     ├── style.css
-    └── Data Analysis Internship__Dataset__Cognifyz Technologies.csv
+    ├── Data Analysis Internship__Dataset__Cognifyz Technologies.csv
+    ├── Task 1/   → task_1.ipynb + 1 exported PNG
+    ├── Task 2/   → task_2.ipynb + 3 exported PNGs
+    └── Task 3/   → task_3.ipynb + 2 exported PNGs
 ```
 
-Level 1 and Level 2 each keep their exploratory notebooks and static chart exports alongside the consolidated dashboard; Level 3 ships as a single dashboard script with no separate per-task notebooks or exported images.
+All three levels now keep their exploratory per-task notebooks and exported charts alongside the consolidated dashboard.
 
 ## How it works
 
@@ -135,7 +138,7 @@ pip install streamlit pandas plotly
 streamlit run "Level 2/level2_dashboard.py"
 
 # Level 3
-pip install streamlit pandas plotly matplotlib wordcloud nltk textblob spacy
+pip install streamlit pandas plotly matplotlib seaborn wordcloud nltk textblob spacy
 python -m spacy download en_core_web_sm
 streamlit run "Level 3/level3_dashboard.py"
 ```
@@ -144,7 +147,7 @@ Each dashboard resolves its CSV and `style.css` relative to its own file, so run
 
 ## Outputs & visual exploration
 
-Level 1's notebooks export interactive Plotly HTML files (donut, lollipop, treemap, heatmap-style bar, and a Sankey view of delivery → rating flow) under each `Task N/` folder. Level 2's notebooks export static PNGs — rating distributions, a cuisine-combination bar chart, city-zoomed rating maps for New Delhi, Mumbai, and Bangalore, and a chain-popularity chart. Level 3 renders everything live inside its Streamlit app; no static exports are checked into that folder.
+Level 1's notebooks export interactive Plotly HTML files (donut, lollipop, treemap, heatmap-style bar, and a Sankey view of delivery → rating flow) under each `Task N/` folder. Level 2 and Level 3's notebooks export static PNGs — rating distributions, a cuisine-combination bar chart, city-zoomed rating maps for New Delhi, Mumbai, and Bangalore, a chain-popularity chart (Level 2), and review-length, vote-distribution, and price-vs-delivery charts (Level 3).
 
 ## Analytical findings
 
@@ -159,6 +162,7 @@ Verified directly against the dataset (not estimated):
 | Online delivery adoption | 25.7% of restaurants offer it |
 | Rating gap by delivery | 3.25 avg. rating with delivery vs. 2.47 without |
 | Votes–rating correlation | 0.31 (weak positive association) |
+| Most-voted restaurant | Toit — 10,934 votes, 4.8 rating |
 | Table booking by price tier | 0% → 7.7% → 45.7% → 46.8% across tiers 1–4 |
 
 These are associations observed in the data, not causal claims — see each level's README for the exact scope of what was measured.
