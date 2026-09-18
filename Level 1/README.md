@@ -8,11 +8,9 @@
 
 ## Objective
 
-Level 1 establishes the baseline read on the restaurant dataset: which cuisines dominate, how restaurants are distributed across cities, how they're priced, and how many offer online delivery. Everything here is descriptive — counts, percentages, and group averages — with no correlation or text analysis yet; those come in Levels 2 and 3.
+Baseline read on the dataset — cuisine share, city distribution, price tiers, delivery adoption. Descriptive only: counts, percentages, group averages. No correlation or text analysis (that's Levels 2–3).
 
 ## Task coverage
-
-All four official Cognifyz Level 1 tasks are implemented, each with its own notebook and a matching section in the consolidated dashboard.
 
 | # | Task | Notebook | Status |
 |---|---|---|---|
@@ -21,60 +19,89 @@ All four official Cognifyz Level 1 tasks are implemented, each with its own note
 | 3 | Price-range distribution | `Task 3/price_range.ipynb` | ✅ |
 | 4 | Online delivery impact | `Task 4/online_delivery_advanced.ipynb` | ✅ |
 
-## Methodology
+**Pattern across all 4 tasks:** split/group column with Pandas → compute counts & percentages against the full 9,551-row dataset → render as 2–3 complementary Plotly chart types (ranking, share, comparison).
 
-Each task follows the same pattern: split or group the relevant column with Pandas, compute counts and percentages against the full 9,551-row dataset, then render the result with two or three complementary Plotly chart types so the same distribution can be read as a ranking (lollipop/bar), a share (donut), or a comparison (grouped bar + line).
+## Task 1 — Top cuisines
 
-### Task 1 — Top cuisines
+- **Method:** `Cuisines` is comma-separated and multi-label; split and exploded before counting, so a listing of "North Indian, Chinese" counts toward both.
+- **Charts:** lollipop (ranking) + donut (share)
+- **Result:**
 
-`Cuisines` is a comma-separated multi-label field, so it's split and exploded before counting — a restaurant listing "North Indian, Chinese" contributes to both cuisine counts. A **lollipop chart** ranks the top three cuisines by restaurant count, and a **donut chart** shows their share of the total. Verified result: **North Indian leads at 41.5%** of restaurants, followed by **Chinese (28.6%)** and **Fast Food (20.8%)** — note these percentages don't sum to 100% because cuisines overlap.
+| Rank | Cuisine | Share |
+|---|---|---|
+| 1 | North Indian | **41.5%** |
+| 2 | Chinese | **28.6%** |
+| 3 | Fast Food | **20.8%** |
 
-### Task 2 — City-wise analysis
+  Percentages exceed 100% combined — cuisines overlap.
 
-A **horizontal bar chart** ranks the top 10 cities by restaurant count, and a second bar chart (styled as a heatmap-style ranking) surfaces the top 10 cities by average rating, restricted to cities with more than 30 restaurants so single-restaurant outliers don't dominate. Verified result: **New Delhi has the most restaurants (5,473)**, with Gurgaon (1,118) and Noida (1,080) well behind — reflecting the dataset's concentration in the Delhi-NCR region.
+## Task 2 — City-wise analysis
 
-### Task 3 — Price-range distribution
+- **Method:** top-10 city ranking by count; average-rating ranking restricted to cities with >30 restaurants, filtering out single-restaurant outliers
+- **Charts:** horizontal bar (count ranking) + heatmap-style bar (rating ranking)
+- **Result:**
 
-Restaurants are grouped into Zomato's four price tiers (1 = budget, 4 = luxury) and shown as a **bar chart** and a **donut chart**, each annotated with the percentage share. Verified result: **46.5% of restaurants sit in the lowest price tier**, tapering to 32.6%, 14.7%, and 6.1% as price rises.
+| City | Restaurants |
+|---|---|
+| New Delhi | **5,473** |
+| Gurgaon | 1,118 |
+| Noida | 1,080 |
 
-### Task 4 — Online delivery impact
+  Concentration reflects the dataset's Delhi-NCR skew.
 
-Restaurants are split by whether they offer online delivery, visualized as a **donut chart** for adoption share and a combined **bar + line chart** comparing restaurant count against average rating for each group. Verified result: **25.7% of restaurants offer online delivery**, and those that do average a **3.25 rating versus 2.47** for those that don't — a notable gap, though the dashboard doesn't test whether delivery availability itself explains the difference.
+## Task 3 — Price-range distribution
 
-## Visualizations & exported outputs
+- **Method:** grouped into Zomato's 4 price tiers (1 = budget, 4 = luxury)
+- **Charts:** bar + donut, each annotated with share
+- **Result:** Budget **46.5%** · Mid **32.6%** · Premium **14.7%** · Luxury **6.1%**
 
-Each task notebook exports its charts as standalone interactive HTML files, in addition to what's rendered live in the dashboard:
+## Task 4 — Online delivery impact
 
-- **Task 1:** [`top_cuisines_lollipop.html`](Task%201/top_cuisines_lollipop.html), [`top_cuisines_donut.html`](Task%201/top_cuisines_donut.html), `top_3_cuisines_plotly.html`
-- **Task 2:** [`top_cities_restaurant_count_bar.html`](Task%202/top_cities_restaurant_count_bar.html), [`city_distribution_treemap.html`](Task%202/city_distribution_treemap.html), [`top_cities_avg_rating_heatmap.html`](Task%202/top_cities_avg_rating_heatmap.html)
-- **Task 3:** [`price_range_distribution_bar.html`](Task%203/price_range_distribution_bar.html), [`price_range_distribution_donut.html`](Task%203/price_range_distribution_donut.html), [`price_range_lollipop.html`](Task%203/price_range_lollipop.html)
-- **Task 4:** [`online_delivery_pie_enhanced.html`](Task%204/online_delivery_pie_enhanced.html), [`delivery_rating_comparison_grouped.html`](Task%204/delivery_rating_comparison_grouped.html), [`online_delivery_rating_sankey_clean.html`](Task%204/online_delivery_rating_sankey_clean.html) — a Sankey diagram tracing delivery availability into rating category, exported from the notebook but not included in the live dashboard
+- **Method:** split by delivery availability; average rating compared across the split
+- **Charts:** donut (adoption share) + combined bar/line (count vs. rating)
+- **Result:**
 
-Task 2 also produces a treemap of city-wise restaurant density that isn't part of the consolidated dashboard but is available as a standalone HTML export.
+| Group | Share | Avg. rating |
+|---|---|---|
+| Offers delivery | **25.7%** | **3.25** |
+| No delivery | 74.3% | 2.47 |
+
+  A +0.78 rating gap — not tested for causality.
+
+## Exported outputs
+
+| Task | Files |
+|---|---|
+| 1 | [`top_cuisines_lollipop.html`](Task%201/top_cuisines_lollipop.html) · [`top_cuisines_donut.html`](Task%201/top_cuisines_donut.html) · `top_3_cuisines_plotly.html` |
+| 2 | [`top_cities_restaurant_count_bar.html`](Task%202/top_cities_restaurant_count_bar.html) · [`city_distribution_treemap.html`](Task%202/city_distribution_treemap.html) · [`top_cities_avg_rating_heatmap.html`](Task%202/top_cities_avg_rating_heatmap.html) |
+| 3 | [`price_range_distribution_bar.html`](Task%203/price_range_distribution_bar.html) · [`price_range_distribution_donut.html`](Task%203/price_range_distribution_donut.html) · [`price_range_lollipop.html`](Task%203/price_range_lollipop.html) |
+| 4 | [`online_delivery_pie_enhanced.html`](Task%204/online_delivery_pie_enhanced.html) · [`delivery_rating_comparison_grouped.html`](Task%204/delivery_rating_comparison_grouped.html) · [`online_delivery_rating_sankey_clean.html`](Task%204/online_delivery_rating_sankey_clean.html) — Sankey of delivery → rating flow, exported but not in the live dashboard |
+
+Task 2's treemap export isn't part of the consolidated dashboard.
 
 ## Key findings
 
-| Question | Finding |
+| Metric | Value |
 |---|---|
-| Dominant cuisine | North Indian, present in 41.5% of listings |
-| Most-listed city | New Delhi (5,473 restaurants) |
-| Most common price tier | Budget (tier 1) — 46.5% of restaurants |
-| Online delivery adoption | 25.7% of restaurants |
-| Rating difference by delivery | +0.78 average rating for restaurants offering delivery |
+| Dominant cuisine | North Indian — 41.5% |
+| Most-listed city | New Delhi — 5,473 restaurants |
+| Most common price tier | Budget — 46.5% |
+| Online delivery adoption | 25.7% |
+| Rating gap by delivery | +0.78 |
 
 ## Data export
 
-Each dashboard section builds a summary table; clicking **Export CSV** in the app writes a combined `level1_summary.csv` (top cuisines, city summary, and price distribution) to the working directory.
+**Export CSV** button in-app → `level1_summary.csv` (top cuisines, city summary, price distribution).
 
 ## Technical stack
 
 | Tool | Purpose |
 |---|---|
 | Python 3 | Core language |
-| Pandas, NumPy | Data loading, splitting, and aggregation |
-| Plotly Express & Graph Objects | Lollipop, donut, bar, and combo charts |
+| Pandas, NumPy | Loading, splitting, aggregation |
+| Plotly Express & Graph Objects | Lollipop, donut, bar, combo charts |
 | Streamlit | Dashboard frontend |
-| Custom CSS (`style.css`) | Dark, glass-panel dashboard theme |
+| Custom CSS (`style.css`) | Dark, glass-panel theme |
 
 ## Project structure
 
@@ -83,26 +110,10 @@ Level 1/
 ├── level1_dashboard.py
 ├── style.css
 ├── Data Analysis Internship__Dataset__Cognifyz Technologies.csv
-├── Task 1/
-│   ├── top_cuisines.ipynb
-│   ├── top_cuisines_lollipop.html
-│   ├── top_cuisines_donut.html
-│   └── top_3_cuisines_plotly.html
-├── Task 2/
-│   ├── city_analysis.ipynb
-│   ├── top_cities_restaurant_count_bar.html
-│   ├── city_distribution_treemap.html
-│   └── top_cities_avg_rating_heatmap.html
-├── Task 3/
-│   ├── price_range.ipynb
-│   ├── price_range_distribution_bar.html
-│   ├── price_range_distribution_donut.html
-│   └── price_range_lollipop.html
-└── Task 4/
-    ├── online_delivery_advanced.ipynb
-    ├── online_delivery_pie_enhanced.html
-    ├── delivery_rating_comparison_grouped.html
-    └── online_delivery_rating_sankey_clean.html
+├── Task 1/  → top_cuisines.ipynb + 3 HTML exports
+├── Task 2/  → city_analysis.ipynb + 3 HTML exports
+├── Task 3/  → price_range.ipynb + 3 HTML exports
+└── Task 4/  → online_delivery_advanced.ipynb + 3 HTML exports
 ```
 
 ## Run instructions
@@ -113,8 +124,8 @@ cd "Level 1"
 streamlit run level1_dashboard.py
 ```
 
-Then open `http://localhost:8501`. The dataset CSV and `style.css` must stay in this folder — the script resolves both relative to its own location.
+Open `http://localhost:8501`. CSV and `style.css` must stay in this folder.
 
 ## Relationship to overall architecture
 
-Level 1 is the descriptive base the rest of ZomatoLens builds on: [Level 2](../Level%202/README.md) takes the city and cuisine dimensions established here and adds geography and chain structure, and [Level 3](../Level%203/README.md) layers in text, correlation, and service-adoption analysis. See the [root README](../README.md) for how all three fit together.
+Descriptive base for ZomatoLens. [Level 2](../Level%202/README.md) adds geography and chain structure on top of the cuisine/city dimensions here; [Level 3](../Level%203/README.md) adds text, correlation, and service-adoption analysis. Full picture: [root README](../README.md).
