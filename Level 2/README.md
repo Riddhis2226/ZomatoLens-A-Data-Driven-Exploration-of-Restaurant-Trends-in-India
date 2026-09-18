@@ -8,7 +8,7 @@
 
 ## Objective
 
-Level 2 moves past simple counts into structure: how ratings are distributed, which cuisine pairings tend to rate well, where restaurants cluster geographically, and how multi-branch chains compare to single-location restaurants. All four official Cognifyz Level 2 tasks are implemented.
+Structure beyond counts: rating distribution, cuisine-combination performance, geographic clustering, chain behavior. All 4 official Cognifyz Level 2 tasks implemented.
 
 ## Task coverage
 
@@ -19,58 +19,81 @@ Level 2 moves past simple counts into structure: how ratings are distributed, wh
 | 3 | Geographic analysis | `Task 3/Task 3.ipynb` | ✅ |
 | 4 | Restaurant chain analysis | `Task 4/Task 4.ipynb` | ✅ |
 
-## Task-by-task analysis
+## Task 1 — Rating distribution
 
-### Task 1 — Rating distribution
+- **Method:** nonzero `Aggregate rating` values plotted as histogram + boxplot; `Rating text` categories counted; mean votes computed across all restaurants
+- **Result:**
 
-Restaurants with a nonzero `Aggregate rating` are plotted as a **histogram** and a **boxplot** to show both the shape and spread of ratings, alongside a bar chart of the six `Rating text` categories (Excellent, Very Good, Good, Average, Poor, Not rated) and the mean number of votes across all restaurants. Verified result: the dataset averages **156.9 votes per restaurant**, and the most common rating category is **"Average"** (3,737 restaurants), followed by **"Not rated"** (2,148).
+| Metric | Value |
+|---|---|
+| Avg. votes per restaurant | **156.9** |
+| Most common rating category | "Average" — **3,737** restaurants |
+| Second most common | "Not rated" — 2,148 restaurants |
 
-### Task 2 — Cuisine combination analysis
+## Task 2 — Cuisine combination analysis
 
-Rather than single cuisines, this task groups by the full `Cuisines` string as listed (e.g. "North Indian, Chinese" is its own combination), then filters to combinations with more than 20 restaurants before ranking by average rating. That 20-restaurant threshold is a methodological choice: it keeps small, noisy combinations from dominating a "top-rated" ranking on the strength of two or three unusually well-reviewed restaurants, at the cost of excluding rarer combinations entirely. Verified top combinations by average rating (min. 20 restaurants): **American (3.67, n=31)**, **Italian (3.66, n=54)**, and **Italian, Pizza (3.64, n=24)**.
+- **Method:** grouped by the full `Cuisines` string as listed (e.g. "North Indian, Chinese" is its own combo), filtered to combos with **>20 restaurants** before ranking by average rating
+- **Why the threshold:** prevents small, noisy combinations from topping the ranking on 2–3 unusually well-rated restaurants; trade-off is excluding rarer combos entirely
+- **Result (min. 20 restaurants):**
 
-### Task 3 — Geographic analysis
+| Rank | Combo | Avg. rating | n |
+|---|---|---|---|
+| 1 | American | **3.67** | 31 |
+| 2 | Italian | 3.66 | 54 |
+| 3 | Italian, Pizza | 3.64 | 24 |
 
-Restaurant locations are plotted with `Plotly`'s `scatter_mapbox`, rendered over free **OpenStreetMap** tiles nationally and **CARTO Positron** tiles for the city-level zooms — no paid Mapbox API key is required. One national map plots all restaurants (sized by votes, colored by rating), and three city-level maps zoom into **New Delhi, Mumbai, and Bangalore** individually.
+## Task 3 — Geographic analysis
 
-### Task 4 — Restaurant chain analysis
+- **Method:** `Plotly scatter_mapbox` over free **OpenStreetMap** (national) and **CARTO Positron** (city zooms) tiles — no paid Mapbox API key
+- **Maps:** 1 national (all restaurants, sized by votes, colored by rating) + 3 city zooms — **New Delhi, Mumbai, Bangalore**
 
-A restaurant name that appears more than once in the dataset is treated as a chain. Of **7,446 unique restaurant names, 734 appear at more than one location**. The dashboard tracks branch count, average rating, and total votes as three separate metrics rather than collapsing them into one score — a chain can have many branches without being highly rated, or few branches with very high engagement. By branch count, **Cafe Coffee Day (83)**, **Domino's Pizza (79)**, and **Subway (63)** lead; by total votes across branches, **Barbeque Nation (26 branches, 4.35 avg. rating, 28,142 votes)** tops the ranking, ahead of higher-rated but smaller chains like **AB's – Absolute Barbecues (4 branches, 4.83 avg. rating)**.
+## Task 4 — Restaurant chain analysis
+
+- **Method:** a restaurant name appearing more than once = a chain; branch count, average rating, and total votes tracked as **three separate metrics** (not collapsed into one score)
+- **Result:**
+
+| Metric | Value |
+|---|---|
+| Unique restaurant names | 7,446 |
+| Names with >1 branch | **734** |
+| Most-branched chain | Cafe Coffee Day — **83** branches |
+| Highest-engagement chain (total votes) | Barbeque Nation — **28,142** votes across 26 branches, 4.35 avg. rating |
+| Highest-rated small chain | AB's – Absolute Barbecues — 4.83 avg. rating, 4 branches |
 
 ## Visual outputs
 
-Level 2's notebooks export static PNG charts rather than interactive HTML:
-
-- **Task 1:** [`Distribution of Restaurant Ratings.png`](Task%201/Distribution%20of%20Restaurant%20Ratings.png), [`Boxplot - Spread of Restaurant Ratings.png`](Task%201/Boxplot%20-%20Spread%20of%20Restaurant%20Ratings.png), [`Restaurant Count by Rating Category.png`](Task%201/Restaurant%20Count%20by%20Rating%20Category.png)
-- **Task 2:** [`Top 20 Cuisine Combinations by Average Rating.png`](Task%202/Top%2020%20Cuisine%20Combinations%20by%20Average%20Rating.png)
-- **Task 3:** [`Restaurant Ratings & Votes Across India.png`](Task%203/Restaurant%20Ratings%20%26%20Votes%20Across%20India.png), plus city-zoomed maps for [New Delhi](Task%203/Restaurant%20Ratings%20in%20New%20Delhi.png), [Mumbai](Task%203/Restaurant%20Ratings%20in%20Mumbai.png), and [Bangalore](Task%203/Restaurant%20Ratings%20in%20Bangalore.png)
-- **Task 4:** [`Top 15 Restaurant Chains by Popularity (Votes).png`](Task%204/Top%2015%20Restaurant%20Chains%20by%20Popularity%20%28Votes%29.png)
+| Task | Files |
+|---|---|
+| 1 | [`Distribution of Restaurant Ratings.png`](Task%201/Distribution%20of%20Restaurant%20Ratings.png) · [`Boxplot - Spread of Restaurant Ratings.png`](Task%201/Boxplot%20-%20Spread%20of%20Restaurant%20Ratings.png) · [`Restaurant Count by Rating Category.png`](Task%201/Restaurant%20Count%20by%20Rating%20Category.png) |
+| 2 | [`Top 20 Cuisine Combinations by Average Rating.png`](Task%202/Top%2020%20Cuisine%20Combinations%20by%20Average%20Rating.png) |
+| 3 | [`Restaurant Ratings & Votes Across India.png`](Task%203/Restaurant%20Ratings%20%26%20Votes%20Across%20India.png) · [New Delhi](Task%203/Restaurant%20Ratings%20in%20New%20Delhi.png) · [Mumbai](Task%203/Restaurant%20Ratings%20in%20Mumbai.png) · [Bangalore](Task%203/Restaurant%20Ratings%20in%20Bangalore.png) |
+| 4 | [`Top 15 Restaurant Chains by Popularity (Votes).png`](Task%204/Top%2015%20Restaurant%20Chains%20by%20Popularity%20%28Votes%29.png) |
 
 ## Key findings
 
 | Metric | Value |
 |---|---|
-| Average votes per restaurant | 156.9 |
-| Most common rating category | "Average" (3,737 restaurants) |
-| Highest-rated cuisine combo (min. 20 restaurants) | American — 3.67 avg. rating |
-| Chains with multiple branches | 734 of 7,446 unique restaurant names |
-| Most-branched chain | Cafe Coffee Day — 83 branches |
-| Highest-engagement chain (by total votes) | Barbeque Nation — 28,142 votes across 26 branches |
+| Avg. votes per restaurant | 156.9 |
+| Most common rating category | "Average" (3,737) |
+| Top cuisine combo (min. 20 restaurants) | American — 3.67 |
+| Chains with multiple branches | 734 / 7,446 |
+| Most-branched chain | Cafe Coffee Day — 83 |
+| Top chain by engagement | Barbeque Nation — 28,142 votes |
 
 ## Data export
 
-The dashboard's **Export CSV** button writes a combined `level2_summary.csv` covering rating-category counts, filtered cuisine combinations, geographic summary data, and the top-15 chain table.
+**Export CSV** → `level2_summary.csv` (rating-category counts, filtered cuisine combos, geographic summary, top-15 chains).
 
 ## Technical stack
 
 | Tool | Purpose |
 |---|---|
 | Python 3 | Core language |
-| Pandas | Grouping and aggregation |
+| Pandas | Grouping, aggregation |
 | Plotly Express & Graph Objects | Histograms, boxplots, bar charts |
-| Plotly `scatter_mapbox` (OpenStreetMap / CARTO) | Geospatial visualization |
+| Plotly `scatter_mapbox` (OSM / CARTO) | Geospatial visualization |
 | Streamlit | Dashboard frontend |
-| Custom CSS (`style.css`) | Dark, glass-panel dashboard theme |
+| Custom CSS (`style.css`) | Dark, glass-panel theme |
 
 ## Project structure
 
@@ -79,23 +102,10 @@ Level 2/
 ├── level2_dashboard.py
 ├── style.css
 ├── Data Analysis Internship__Dataset__Cognifyz Technologies.csv
-├── Task 1/
-│   ├── Task 1.ipynb
-│   ├── Distribution of Restaurant Ratings.png
-│   ├── Boxplot - Spread of Restaurant Ratings.png
-│   └── Restaurant Count by Rating Category.png
-├── Task 2/
-│   ├── Task 2.ipynb
-│   └── Top 20 Cuisine Combinations by Average Rating.png
-├── Task 3/
-│   ├── Task 3.ipynb
-│   ├── Restaurant Ratings & Votes Across India.png
-│   ├── Restaurant Ratings in New Delhi.png
-│   ├── Restaurant Ratings in Mumbai.png
-│   └── Restaurant Ratings in Bangalore.png
-└── Task 4/
-    ├── Task 4.ipynb
-    └── Top 15 Restaurant Chains by Popularity (Votes).png
+├── Task 1/  → Task 1.ipynb + 3 PNG exports
+├── Task 2/  → Task 2.ipynb + 1 PNG export
+├── Task 3/  → Task 3.ipynb + 4 PNG exports
+└── Task 4/  → Task 4.ipynb + 1 PNG export
 ```
 
 ## Run instructions
@@ -106,8 +116,8 @@ cd "Level 2"
 streamlit run level2_dashboard.py
 ```
 
-Then open `http://localhost:8501`. The dataset CSV and `style.css` must stay alongside `level2_dashboard.py`.
+Open `http://localhost:8501`. CSV and `style.css` must stay alongside `level2_dashboard.py`.
 
 ## Relationship to overall architecture
 
-Level 2 builds on the cuisine and city groundwork from [Level 1](../Level%201/README.md) and adds spatial and entity structure — the geography and chains identified here feed conceptually into [Level 3](../Level%203/README.md), where votes and price tier are examined against ratings and service offerings. See the [root README](../README.md) for the full picture.
+Builds on Level 1's cuisine/city groundwork with spatial and entity structure. Geography and chains here feed conceptually into [Level 3](../Level%203/README.md), which examines votes and price tier against ratings and service offerings. Full picture: [root README](../README.md).
