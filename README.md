@@ -71,16 +71,14 @@ flowchart LR
 
 ## Analytical capabilities
 
-| Capability | Method | Level |
-|---|---|---|
-| Descriptive statistics | Frequency counts, percentages, distributions | 1 |
-| Categorical aggregation | `groupby` summaries by city, cuisine combo, chain | 1–2 |
-| Geospatial visualization | Plotly `scatter_mapbox` on OpenStreetMap / CARTO | 2 |
-| Entity analysis | Chain detection by repeated name — branch count, avg. rating, votes tracked separately | 2 |
-| Sentiment analysis | VADER + TextBlob polarity scoring | 3 |
-| NLP enrichment | spaCy noun-chunk frequency extraction | 3 |
-| Correlation analysis | Pearson coefficients (votes–rating, sentiment–rating) — no causal claims | 3 |
-| Service-adoption analysis | Delivery/booking uptake by price tier | 3 |
+- [x] **Descriptive statistics** — frequency counts, percentages, distributions · `Level 1`
+- [x] **Categorical aggregation** — `groupby` summaries by city, cuisine combo, chain · `Level 1–2`
+- [x] **Geospatial visualization** — Plotly `scatter_mapbox` on OpenStreetMap / CARTO · `Level 2`
+- [x] **Entity analysis** — chain detection by repeated name; branch count, avg. rating, votes tracked separately · `Level 2`
+- [x] **Sentiment analysis** — VADER + TextBlob polarity scoring · `Level 3`
+- [x] **NLP enrichment** — spaCy noun-chunk frequency extraction · `Level 3`
+- [x] **Correlation analysis** — Pearson coefficients (votes–rating, sentiment–rating), no causal claims · `Level 3`
+- [x] **Service-adoption analysis** — delivery/booking uptake by price tier · `Level 3`
 
 ## Technical stack
 
