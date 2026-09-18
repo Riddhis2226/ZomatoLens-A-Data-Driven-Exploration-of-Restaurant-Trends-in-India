@@ -71,14 +71,48 @@ flowchart LR
 
 ## Analytical capabilities
 
-- [x] **Descriptive statistics** — frequency counts, percentages, distributions · `Level 1`
-- [x] **Categorical aggregation** — `groupby` summaries by city, cuisine combo, chain · `Level 1–2`
-- [x] **Geospatial visualization** — Plotly `scatter_mapbox` on OpenStreetMap / CARTO · `Level 2`
-- [x] **Entity analysis** — chain detection by repeated name; branch count, avg. rating, votes tracked separately · `Level 2`
-- [x] **Sentiment analysis** — VADER + TextBlob polarity scoring · `Level 3`
-- [x] **NLP enrichment** — spaCy noun-chunk frequency extraction · `Level 3`
-- [x] **Correlation analysis** — Pearson coefficients (votes–rating, sentiment–rating), no causal claims · `Level 3`
-- [x] **Service-adoption analysis** — delivery/booking uptake by price tier · `Level 3`
+<table>
+<tr><td width="120"><b>📊 Level 1</b><br/>Descriptive</td><td>
+
+**Descriptive statistics** — frequency counts, percentages, distributions
+
+</td></tr>
+<tr><td width="120"><b>🧮 Level 1–2</b><br/>Aggregation</td><td>
+
+**Categorical aggregation** — `groupby` summaries by city, cuisine combo, chain
+
+</td></tr>
+<tr><td width="120" rowspan="2"><b>🗺️ Level 2</b><br/>Geospatial & entity</td><td>
+
+**Geospatial visualization** — Plotly `scatter_mapbox` on OpenStreetMap / CARTO tiles
+
+</td></tr>
+<tr><td>
+
+**Entity analysis** — chain detection by repeated name; branch count, avg. rating, and votes tracked separately
+
+</td></tr>
+<tr><td width="120" rowspan="4"><b>💬 Level 3</b><br/>Text & correlation</td><td>
+
+**Sentiment analysis** — VADER + TextBlob polarity scoring
+
+</td></tr>
+<tr><td>
+
+**NLP enrichment** — spaCy noun-chunk frequency extraction
+
+</td></tr>
+<tr><td>
+
+**Correlation analysis** — Pearson coefficients (votes–rating, sentiment–rating) — no causal claims
+
+</td></tr>
+<tr><td>
+
+**Service-adoption analysis** — delivery/booking uptake by price tier
+
+</td></tr>
+</table>
 
 ## Technical stack
 
